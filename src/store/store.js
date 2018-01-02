@@ -1,7 +1,7 @@
 import * as types from './mutation-types'
 
 export const state = {
-  lang: 'en-US'
+  lang: null
 }
 
 export const getters = {

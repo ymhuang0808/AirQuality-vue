@@ -38,6 +38,7 @@
     methods: {
       switchLanguage (lang) {
         loadLanguageAsync(lang)
+        this.$store.dispatch('setLang', lang)
       }
     }
   }

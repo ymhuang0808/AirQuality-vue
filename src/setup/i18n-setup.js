@@ -1,10 +1,11 @@
 import Vue from 'vue'
+import store from '../store/index'
 import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
 export const i18n = new VueI18n({
-  locale: navigator.language,
+  locale: store.getters.lang == null ? navigator.language : store.getters.lang,
   fallbackLocale: 'en-US',
   messages: {
     'en-US': require('../lang/en-US.json'),
