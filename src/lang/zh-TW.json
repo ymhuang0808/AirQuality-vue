@@ -1,3 +1,10 @@
 {
-  "search": "搜尋"
+  "search": "搜尋",
+  "slider": {
+    "site_name": "測站名稱：",
+    "temperature": "溫度：",
+    "humidity": "濕度：",
+    "activity_suggestions": "活動建議",
+    "pm25_concentration": "PM 2.5 濃度"
+  }
 }

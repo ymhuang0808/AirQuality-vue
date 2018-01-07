@@ -1,3 +1,10 @@
 {
-  "search": "Search"
+  "search": "Search",
+  "slider": {
+    "site_name": "Site name: ",
+    "temperature": "Temperature: ",
+    "humidity": "Humidity: ",
+    "activity_suggestions": "Activity Suggestions",
+    "pm25_concentration": "PM 2.5 Concentration"
+  }
 }

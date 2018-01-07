@@ -1,21 +1,26 @@
 <template>
-  <mapbox
-    :access-token="access_token"
-    :map-options="map_options"
-    @map-load="mapLoaded"
-    @map-click="mapClicked">
-  </mapbox>
+  <div class="map">
+    <mapbox
+      :access-token="access_token"
+      :map-options="map_options"
+      @map-load="mapLoaded"
+      @map-click="mapClicked">
+    </mapbox>
+    <measurements-map-legend v-bind:color-stops="colorStops"></measurements-map-legend>
+  </div>
 </template>
 
 <script>
   import Mapbox from 'mapbox-gl-vue'
+  import Inidcator from '../libs/indicator'
+  import MeasurementsMapLegend from './MeasurementsMapLegend'
   import 'mapbox-gl/dist/mapbox-gl.css'
 
   const MAPBOX_API_ACCESS_TOKEN = process.env.MAPBOX_API_ACCESS_TOKEN
 
   export default {
     name: 'MeasurementsMap',
-    components: { Mapbox },
+    components: { Mapbox, MeasurementsMapLegend },
     props: ['mapMeasurements'],
     data: () => {
       return {
@@ -26,7 +31,8 @@
           center: [120, 23],
           zoom: 3
         },
-        layers: []
+        layers: [],
+        colorStops: Inidcator.STANDARDS.custom.info.pm25.colorStops
       }
     },
     watch: {
@@ -40,11 +46,11 @@
         // TODO: add icon images
         console.log('mapLoaded')
 
-        this.addGeoJsonLayer(map, this.mapMeasurements)
+        this.addGeoJsonMarker(map, this.mapMeasurements)
 
         this.$on('measurements-changed', val => {
           // TODO: Remove existing layer
-          this.addGeoJsonLayer(map, val)
+          this.addGeoJsonMarker(map, val)
         })
       },
       mapClicked (map, e) {
@@ -58,36 +64,55 @@
           return
         }
 
-        console.log('feature clicked')
         const feature = features[0]
         this.$emit('feature-clicked', feature)
       },
-      addGeoJsonLayer (map, data) {
+      addGeoJsonMarker (map, data) {
         console.log('addGeoJsonLayer')
         let source = data.source
+        let measurementsGeoJson
+
+        if (source === undefined || source === null || source.length === 0) {
+          return
+        }
 
         source.forEach(name => {
-          console.log(name)
-          let measurements = data.measurements[name].geojson
-          let layer = `measurements-${name}`
-          this.layers.push(layer)
+          measurementsGeoJson = data.measurements[name].geojson
+          // Add source data
+          map.addSource(`${name}-measurements`, {
+            type: 'geojson',
+            data: measurementsGeoJson
+          })
+          // Add style layer
           map.addLayer({
-            id: layer,
-            type: 'symbol',
-            source: {
-              type: 'geojson',
-              data: measurements
-            },
-            layout: {
-              'icon-image': 'monument-15',
-              'text-field': '{name}',
-              'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-              'text-offset': [0, 0.6],
-              'text-anchor': 'top'
+            id: `${name}-measurements`,
+            source: `${name}-measurements`,
+            type: 'circle',
+            paint: {
+              'circle-color': {
+                property: 'pm25',
+                type: 'interval',
+                stops: Inidcator.getPm25ColorStops(Inidcator.STANDARDS.custom.name)
+              },
+              'circle-radius': {
+                base: 1.8,
+                stops: [[5, 2], [8, 10], [22, 20]]
+              },
+              'circle-opacity': 1,
+              'circle-blur': 0
             }
           })
+
+          this.layers.push(`${name}-measurements`)
         })
       }
+      // getMarkerInfo (feature) {
+      //   console.log('getMarkerInfo')
+      //
+      // },
+      // drawMarker (outerCircleColor, innerCircleColor, text) {
+      //   console.log('drawMarker')
+      // }
     }
   }
 </script>
