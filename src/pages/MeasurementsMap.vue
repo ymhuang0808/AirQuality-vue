@@ -29,7 +29,15 @@
       }
     },
     created () {
-      this.$store.dispatch('getAllLatestMeasurements')
+      this.$store.dispatch('getAllLatestMeasurements').then((measurement) => {
+        let selected = this.$store.getters.navFilterSelected
+
+        this.$store.dispatch('setNavFilter', {
+          isVisible: true,
+          source: measurement.source,
+          selected: (selected.length === 0) ? measurement.source : selected
+        })
+      })
       this.$store.dispatch('isShowMeasurementsSlider')
     }
   }

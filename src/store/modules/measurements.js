@@ -16,13 +16,15 @@ const actions = {
     return state.isShowMeasurementsSlider
   },
   getAllLatestMeasurements ({ commit }) {
-    measurements.getAllLatest()
+    return measurements.getAllLatest()
       .then(response => {
         let data = {
           measurements: response.data.measurements,
           source: response.data.meta.source
         }
         commit(types.GET_ALL_LATEST_MEASUREMENTS, data)
+
+        return data
       })
   }
 }

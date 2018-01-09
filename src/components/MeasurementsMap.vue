@@ -13,6 +13,8 @@
 <script>
   import Mapbox from 'mapbox-gl-vue'
   import Inidcator from '../libs/indicator'
+  import * as types from '../store/mutation-types'
+  import _ from 'lodash'
   import MeasurementsMapLegend from './MeasurementsMapLegend'
   import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -31,7 +33,9 @@
           center: [120, 23],
           zoom: 3
         },
+        map: null,
         layers: [],
+        visibleLayers: [],
         colorStops: Inidcator.STANDARDS.custom.info.pm25.colorStops
       }
     },
@@ -43,7 +47,6 @@
     },
     methods: {
       mapLoaded (map) {
-        // TODO: add icon images
         console.log('mapLoaded')
 
         this.addGeoJsonMarker(map, this.mapMeasurements)
@@ -51,6 +54,15 @@
         this.$on('measurements-changed', val => {
           // TODO: Remove existing layer
           this.addGeoJsonMarker(map, val)
+        })
+        this.$on('layer-toggle', val => {
+          console.log('$on(), layer-toggle')
+          console.log(val)
+          let layer = val.layer
+          let visibility = val.visible ? 'visible' : 'none'
+          console.log('layer = ' + layer)
+          console.log('visibility = ' + visibility)
+          map.setLayoutProperty(layer, 'visibility', visibility)
         })
       },
       mapClicked (map, e) {
@@ -70,6 +82,8 @@
       addGeoJsonMarker (map, data) {
         console.log('addGeoJsonLayer')
         let source = data.source
+        let visibleSource = this.$store.getters.navFilterSelected
+        let isVisible
         let measurementsGeoJson
 
         if (source === undefined || source === null || source.length === 0) {
@@ -77,6 +91,7 @@
         }
 
         source.forEach(name => {
+          isVisible = visibleSource.indexOf(name) !== -1
           measurementsGeoJson = data.measurements[name].geojson
           // Add source data
           map.addSource(`${name}-measurements`, {
@@ -88,6 +103,9 @@
             id: `${name}-measurements`,
             source: `${name}-measurements`,
             type: 'circle',
+            layout: {
+              visibility: isVisible ? 'visible' : 'none'
+            },
             paint: {
               'circle-color': {
                 property: 'pm25',
@@ -103,16 +121,43 @@
             }
           })
 
+          if (isVisible) {
+            this.visibleLayers.push(name)
+          }
+
           this.layers.push(`${name}-measurements`)
         })
       }
-      // getMarkerInfo (feature) {
-      //   console.log('getMarkerInfo')
-      //
-      // },
-      // drawMarker (outerCircleColor, innerCircleColor, text) {
-      //   console.log('drawMarker')
-      // }
+    },
+    mounted: function () {
+      let self = this
+      this.$store.subscribe(function (mutation, state) {
+        console.log('subscribe')
+        console.log(mutation)
+
+        if (mutation.type === types.SET_NAV_FILTER_SELECTED) {
+          let original = _.cloneDeep(self.visibleLayers)
+          let current = _.cloneDeep(mutation.payload)
+          let diff = _.xor(original, current)
+          let toggle = {}
+
+          diff.forEach(function (item) {
+            toggle.layer = `${item}-measurements`
+
+            // Check if the source exists for not
+            if (self.visibleLayers.indexOf(item) === -1) {
+              // Not exists
+              toggle.visible = true
+              self.visibleLayers.push(item)
+            } else {
+              toggle.visible = false
+              _.pull(self.visibleLayers, item)
+            }
+
+            self.$emit('layer-toggle', toggle)
+          })
+        }
+      })
     }
   }
 </script>

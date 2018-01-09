@@ -1,5 +1,14 @@
 {
   "search": "搜尋",
+  "filter": "篩選",
+  "epa": "環保署",
+  "lass": "LASS",
+  "airbox": "Edimax 空氣盒子",
+  "navbar": {
+    "filter": {
+      "by_source": "依照來源"
+    }
+  },
   "slider": {
     "site_name": "測站名稱：",
     "temperature": "溫度：",

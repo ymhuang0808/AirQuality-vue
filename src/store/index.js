@@ -7,12 +7,13 @@ import { state, getters, actions, mutations } from './store'
 
 Vue.use(Vuex)
 
-const allowedMutations = [types.SWITCH_LANG]
+const allowedMutations = [types.SWITCH_LANG, types.SET_NAV_FILTER, types.SET_NAV_FILTER_SELECTED]
 const vuexLocalStorage = new VuexPersistence({
   key: 'air-quality-veux',
   storage: window.localStorage,
   reducer: state => ({
-    lang: state.lang
+    lang: state.lang,
+    navFilter: state.navFilter
   }),
   filter: mutation => (allowedMutations.indexOf(mutation.type) !== -1)
 })

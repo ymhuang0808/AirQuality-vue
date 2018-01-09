@@ -1,5 +1,14 @@
 {
   "search": "Search",
+  "filter": "Filter",
+  "epa": "EPA",
+  "lass": "LASS",
+  "airbox": "Edimax Airbox",
+  "navbar": {
+    "filter": {
+      "by_source": "By source"
+    }
+  },
   "slider": {
     "site_name": "Site name: ",
     "temperature": "Temperature: ",
