@@ -26,9 +26,9 @@ $orange:  #fd7e14 !default;
 $yellow:  #FF851B !default;
 $green:   #28B62C !default;
 $teal:    #20c997 !default;
-$cyan:    #00BCD4 !default;
+$cyan:    #75CAEB !default;
 
-$primary:       $cyan !default;
+$primary:       $blue !default;
 $secondary:     $gray-200 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -74,6 +74,6 @@ $jumbotron-bg:                      #fafafa !default;
 
 $modal-content-border-color:        rgba($black,.1) !default;
 
-// Global options
+// Close
 
-$enable-shadows:                    true;
+$close-color:                       $white !default;
