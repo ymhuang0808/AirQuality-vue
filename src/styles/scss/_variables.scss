@@ -26,9 +26,9 @@ $orange:  #fd7e14 !default;
 $yellow:  #FF851B !default;
 $green:   #28B62C !default;
 $teal:    #20c997 !default;
-$cyan:    #75CAEB !default;
+$cyan:    #00BCD4 !default;
 
-$primary:       $blue !default;
+$primary:       $cyan !default;
 $secondary:     $gray-200 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -76,4 +76,14 @@ $modal-content-border-color:        rgba($black,.1) !default;
 
 // Close
 
-$close-color:                       $white !default;
+$close-color:                       $gray-600 !default;
+
+// Global options
+$enable-shadows:                    true;
+
+// PM2.5 custom level color
+$pm25-custom-level-very_good:       #00BCD4;
+$pm25-custom-level-godd:             #009688;
+$pm25-custom-level-moderate:        #FFC107;
+$pm25-custom-level-bad:             #FF5722;
+$pm25-custom-level-very_bad:        #9C27B0;

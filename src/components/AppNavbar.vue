@@ -3,7 +3,7 @@
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#"><img src="../assets/logo.png" alt="logo" id="logo" />{{ $t('site_name') }}</b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 
@@ -81,6 +81,8 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  #logo {
+    height: 50px;
+  }
 </style>

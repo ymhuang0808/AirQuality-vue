@@ -10,9 +10,9 @@ export default class Indicator {
             [15, '#009688'],
             [35, '#FFC107'],
             [50, '#FF5722'],
-            [65, '#9C27B0']
+            [70, '#9C27B0']
           ],
-          description: ['good', 'moderate', 'unhealthy_for_sensitive', 'unhealthy', 'very_unhealthy']
+          levels: ['very_good', 'good', 'moderate', 'bad', 'very_bad']
         }
       }
     }
@@ -20,6 +20,10 @@ export default class Indicator {
 
   static getPm25ColorStops (standard) {
     return this.getStandardInfo(standard).pm25.colorStops
+  }
+
+  static getPm25Levels (standard) {
+    return this.getStandardInfo(standard).pm25.levels
   }
 
   static getStandardInfo (standard) {

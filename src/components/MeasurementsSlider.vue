@@ -20,18 +20,39 @@
         </div>
         <hr />
         <div class="slider-content__container__main d-flex flex-column">
-          <span class="lead">{{ $t('slider.pm25_concentration') }} </span>
-          <div ref="linearGaugeParent" class="measurement__pm25 d-block mb-3">
-            <app-linear-gauge ref="linearGauge" :l-width.sync="lWidth" :stops="stops" :max-value="Number(80)" :l-value="pm25"></app-linear-gauge>
-          </div>
-          <div class="d-block">
-            <div class="w-50 float-left"><span class="measurement__temperature">{{ $t('slider.temperature') }}{{ temperature }}</span></div>
-            <div class="w-50 float-left"><span class="measurement__humidity">{{ $t('slider.humidity') }}{{ humidity }}</span></div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 text-center"><span class="lead">{{ $t('slider.pm25_concentration') }}</span></div>
+              <div class="col-12 text-center"><span :class="[ 'measurement__pm25-level', 'measurement__pm25-level--' + this.level ]">{{ $t(`levels.${this.level}.name`) }}</span></div>
+              <div class="col-12">
+                <div ref="linearGaugeParent" class="measurement__pm25 d-block">
+                  <app-linear-gauge ref="linearGauge" :l-width.sync="lWidth" :stops="stops" :max-value="Number(80)" :l-value="pm25"></app-linear-gauge>
+                </div>
+              </div>
+              <div class="col-6"><span class="measurement__temperature">{{ $t('slider.temperature') }}{{ temperature }}</span></div>
+              <div class="col-6"><span class="measurement__humidity">{{ $t('slider.humidity') }}{{ humidity }}</span></div>
+            </div>
           </div>
         </div>
         <hr />
-        <div class="slider-content__container__suggestions d-flex flex-column">
-          <span class="lead">{{ $t('slider.activity_suggestions') }}</span>
+        <div class="slider-content__container__suggestions">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 text-center slider-content__container__suggestions__title"><span class="lead">{{ $t('slider.activity_suggestions') }}</span></div>
+              <div class="col-12 slider-content__container__suggestions__item suggestions__general-public">
+                <div class="row">
+                  <div class="col-12 suggestions__general-public__title"><h5>{{ $t('groups.general_public') }}</h5></div>
+                  <div class="col-12 suggestions__general-public__description" v-html="$t(`levels.${this.level}.activity_guidance.general_public`)"></div>
+                </div>
+              </div>
+              <div class="col-12 slider-content__container__suggestions__item suggestions__sensitive_groups">
+                <div class="row">
+                  <div class="col-12 suggestions__sensitive_groups__title"><h5>{{ $t('groups.sensitive_groups') }}</h5></div>
+                  <div class="col-12 suggestions__sensitive_groups__description" v-html="$t(`levels.${this.level}.activity_guidance.sensitive_groups`)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -44,11 +65,13 @@
   import Slideout from 'vue-slideout'
   import AppLinearGauge from './AppLinearGauge'
   import Indicator from '../libs/indicator'
+  import IndicatorHelpersMixin from '../mixins/IndicatorHelpersMixin'
   import { sourceLogo } from '../utils/source-logo'
   import moment from 'moment'
 
   export default {
     name: 'MeasurementsSlider',
+    mixins: [IndicatorHelpersMixin],
     components: { Slideout, AppLinearGauge },
     props: ['measurement'],
     methods: {
@@ -113,6 +136,11 @@
         }
 
         return require(`../assets/imgs/source-logos/${logo}`)
+      },
+      level: function () {
+        if (this.pm25 !== null) {
+          return this.getPM25LevelByValue(this.pm25)
+        }
       }
     },
     updated: function () {
@@ -136,9 +164,9 @@
     position: relative;
     top: 0;
     bottom: 0;
-    width: 28vw;
+    width: 20vw;
     min-height: 100vh;
-    margin-top: 52px;
+    margin-top: 80px;
     padding: 25px 10px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -196,12 +224,60 @@
           font-weight: bold;
         }
       }
+
+      &__suggestions {
+        &__title {
+          margin-bottom: 1.1em;
+        }
+      }
+
+      &__suggestions {
+        &__item {
+          margin-bottom: 1.2em;
+        }
+      }
+    }
+  }
+
+  .suggestions {
+    &__general-public, &__sensitive_groups {
+      &__title {
+        color: #868e96;
+      }
+
+      &__description {
+        font-size: 1.1em;
+      }
     }
   }
 
   .measurement {
-    &__temperature, &__humidity {
+    &__temperature, &__humidity, &__pm25-level {
       font-size: medium;
+    }
+
+    &__pm25-level {
+      font-weight: bold;
+
+      &--very_good {
+        color: $pm25-custom-level-very_good;
+      }
+
+      &--good {
+        color: $pm25-custom-level-godd;
+      }
+
+      &--moderate {
+        color: $pm25-custom-level-moderate;
+      }
+
+      &--bad {
+        color: $pm25-custom-level-bad;
+      }
+
+      &--very_bad {
+        color: $pm25-custom-level-very_bad;
+      }
     }
   }
 </style>

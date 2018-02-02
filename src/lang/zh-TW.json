@@ -1,4 +1,5 @@
 {
+  "site_name": "How 好空氣",
   "search": "搜尋",
   "filter": "篩選",
   "epa": "環保署",
@@ -15,5 +16,46 @@
     "humidity": "濕度：",
     "activity_suggestions": "活動建議",
     "pm25_concentration": "PM 2.5 濃度"
+  },
+  "groups": {
+    "general_public": "一般大眾",
+    "sensitive_groups": "敏感性族群"
+  },
+  "levels": {
+    "very_good" : {
+      "name": "非常好",
+      "activity_guidance": {
+        "general_public": "適合享受戶外活動",
+        "sensitive_groups": "適合享受戶外活動"
+      }
+    },
+    "good" : {
+      "name": "良好",
+      "activity_guidance": {
+        "general_public": "適合享受戶外活動",
+        "sensitive_groups": "適合享受戶外活動"
+      }
+    },
+    "moderate" : {
+      "name": "普通",
+      "activity_guidance": {
+        "general_public": "適合享受戶外活動",
+        "sensitive_groups": "有呼吸道疾病的小孩與成人，以及有心臟疾病的成人，如果出現症狀，應該考慮減少劇烈的活動，特別要避免在戶外活動"
+      }
+    },
+    "bad" : {
+      "name": "很不好",
+      "activity_guidance": {
+        "general_public": "一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動",
+        "sensitive_groups": "<ul><li>有呼吸道疾病的小孩與成人，以及有心臟疾病的成人，尤其是在室外，並出現症狀時，應該減少劇烈的體力消耗</li><li>氣喘患者可能需要更頻繁地使用吸入劑</li><li>年長者應該減少體力消耗</li></ul>"
+      }
+    },
+    "very_bad" : {
+      "name": "非常不好",
+      "activity_guidance": {
+        "general_public": "一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應減少體力消耗，特別是減少戶外活動",
+        "sensitive_groups": "<ul><li>有心臟、呼吸道及心血管疾病患者、孩童及老年人，建議留在室內並減少體力消耗活動，必要外出應配戴口罩</li><li>具有氣喘的人可能需增加使用吸入劑的頻率</li></ul>"
+      }
+    }
   }
 }
