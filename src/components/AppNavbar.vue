@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="primary" fixed="top">
+  <b-navbar toggleable="md" type="dark" variant="primary" fixed="top" :sticky="true">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -8,12 +8,11 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+        <b-nav-item :to="{ name: 'About' }">{{ $t('about') }}</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="ml-auto" v-if="$route.name === 'Map'">
 
         <b-nav-form>
           <b-form-input size="lg" class="mr-sm-2" type="text" :placeholder="$t('search')"/>
@@ -45,9 +44,15 @@
 
   export default {
     name: 'AppNavbar',
+    data: () => {
+      return {
+        navFilterOptions: []
+      }
+    },
     computed: {
       ...mapGetters([
-        'navFilter'
+        'navFilter',
+        'allLatestMeasurements'
       ]),
       filterSelected: {
         get: function () {
@@ -57,9 +62,11 @@
         set: function (value) {
           this.$store.dispatch('setNavFilterSelected', value)
         }
-      },
-      navFilterOptions: function () {
-        let source = this.$store.getters.allLatestMeasurements.source
+      }
+    },
+    watch: {
+      allLatestMeasurements: function (data) {
+        let source = data.source
         let options = []
 
         source.forEach((item) => {
@@ -69,7 +76,7 @@
           })
         })
 
-        return options
+        this.navFilterOptions = options
       }
     },
     methods: {
