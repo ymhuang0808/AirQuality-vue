@@ -3,7 +3,7 @@
     <resize-observer @notify="handleResize" />
     <measurements-map :map-measurements="measurements" v-on:feature-clicked="siteClicked"></measurements-map>
     <measurement-sidebar v-if="!hideSlideUp" ref="mSidebar" :measurement="measurement"></measurement-sidebar>
-    <measurements-slide-up v-if="hideSlideUp" ref="mSlideUp" :measurement="measurement" :visible="slideUpVisible" @toggleInvisible="toggleSlideUpInvisible"></measurements-slide-up>
+    <measurement-slide-up v-if="hideSlideUp" ref="mSlideUp" :measurement="measurement" :visible="slideUpVisible" @toggleInvisible="toggleSlideUpInvisible"></measurement-slide-up>
   </div>
 </template>
 
@@ -12,11 +12,11 @@
   import MeasurementsMap from '../components/MeasurementsMap'
   import MeasurementSidebar from '../components/MeasurementSidebar'
   import verge from 'verge'
-  import MeasurementsSlideUp from '../components/MeasurementsSlideUp'
+  import MeasurementSlideUp from '../components/MeasurementSlideUp'
 
   export default {
     components: {
-      MeasurementsSlideUp,
+      MeasurementSlideUp,
       MeasurementsMap,
       MeasurementSidebar: MeasurementSidebar
     },

@@ -61,7 +61,7 @@
   import MeasurementInfoMixin from '../mixins/MeasurementInfoMixin'
 
   export default {
-    name: 'MeasurementsSlideUp',
+    name: 'MeasurementSlideUp',
     mixins: [MeasurementInfoMixin],
     props: {
       measurement: Object,
