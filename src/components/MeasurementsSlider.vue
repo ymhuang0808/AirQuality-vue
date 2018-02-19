@@ -1,5 +1,5 @@
 <template>
-  <Slideout ref="measurementSlider" menu="#menu" panel="#panel">
+  <Slideout ref="measurementSlider" menu="#menu" panel="#panel" class="measurements-slider">
     <div id="menu" class="slider-content">
       <div class="slider-content__container measurement" v-if="measurement">
         <div class="slider-content__container__header d-flex flex-column">
@@ -63,16 +63,12 @@
 
 <script>
   import Slideout from 'vue-slideout'
-  import AppLinearGauge from './AppLinearGauge'
-  import Indicator from '../libs/indicator'
-  import IndicatorHelpersMixin from '../mixins/IndicatorHelpersMixin'
-  import { sourceLogo } from '../utils/source-logo'
-  import moment from 'moment'
+  import MeasurementInfoMixin from '../mixins/MeasurementInfoMixin'
 
   export default {
     name: 'MeasurementsSlider',
-    mixins: [IndicatorHelpersMixin],
-    components: { Slideout, AppLinearGauge },
+    mixins: [MeasurementInfoMixin],
+    components: { Slideout },
     props: ['measurement'],
     methods: {
       close () {
@@ -82,65 +78,7 @@
     },
     data: () => {
       return {
-        stops: Indicator.STANDARDS.custom.info.pm25.colorStops,
         lWidth: 0
-      }
-    },
-    computed: {
-      siteName: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        return this.measurement.properties.humanized_name
-      },
-      sourceType: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        return this.measurement.properties.source_type
-      },
-      timeAgo: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        let publishedDateTime = moment(this.measurement.properties.published_datetime, moment.defaultFormat)
-
-        return publishedDateTime.fromNow()
-      },
-      pm25: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        return this.measurement.properties.pm25
-      },
-      temperature: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        return this.measurement.properties.temperature
-      },
-      humidity: function () {
-        if (this.measurement === undefined || this.measurement === null) {
-          return null
-        }
-        return this.measurement.properties.humidity
-      },
-      imgSrc: function () {
-        if (this.measurement === null) {
-          return null
-        }
-        let logo = sourceLogo[this.sourceType]
-
-        if (logo === undefined) {
-          return null
-        }
-
-        return require(`../assets/imgs/source-logos/${logo}`)
-      },
-      level: function () {
-        if (this.pm25 !== null) {
-          return this.getPM25LevelByValue(this.pm25)
-        }
       }
     },
     updated: function () {
@@ -155,19 +93,25 @@
 </script>
 
 <style lang="scss" scoped>
-  body {
-    width: 100%;
+  .measurements-slider {
     height: 100%;
   }
 
   .slideout-menu {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 80.7667px;
     bottom: 0;
-    width: 20vw;
-    min-height: 100vh;
-    margin-top: 80px;
+
+    @include media-breakpoint-down(xl) {
+      width: 30vw;
+    }
+
+    @include media-breakpoint-up(xl) {
+      width: 25vw;
+    }
+
     padding: 25px 10px;
+    overflow-x: scroll;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     z-index: 0;
@@ -205,6 +149,7 @@
 
   .slider-content {
     &__container {
+
       .lead {
         text-align: center;
       }
@@ -229,9 +174,7 @@
         &__title {
           margin-bottom: 1.1em;
         }
-      }
 
-      &__suggestions {
         &__item {
           margin-bottom: 1.2em;
         }
@@ -239,45 +182,4 @@
     }
   }
 
-  .suggestions {
-    &__general-public, &__sensitive_groups {
-      &__title {
-        color: #868e96;
-      }
-
-      &__description {
-        font-size: 1.1em;
-      }
-    }
-  }
-
-  .measurement {
-    &__temperature, &__humidity, &__pm25-level {
-      font-size: medium;
-    }
-
-    &__pm25-level {
-      font-weight: bold;
-
-      &--very_good {
-        color: $pm25-custom-level-very_good;
-      }
-
-      &--good {
-        color: $pm25-custom-level-godd;
-      }
-
-      &--moderate {
-        color: $pm25-custom-level-moderate;
-      }
-
-      &--bad {
-        color: $pm25-custom-level-bad;
-      }
-
-      &--very_bad {
-        color: $pm25-custom-level-very_bad;
-      }
-    }
-  }
 </style>

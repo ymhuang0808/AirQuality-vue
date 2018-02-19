@@ -3,9 +3,27 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./bootswatch";
 
+body, #app {
+  height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+main, #map-measurements-page {
+  width: 100%;
+  height: 100% !important;
+}
+
 #map {
   position: absolute;
-  top: 54px;
+  top: 80px;
   bottom: 0;
   width: 100%;
 }
@@ -17,4 +35,48 @@
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+/** Measurements information **/
+
+.suggestions {
+  &__general-public, &__sensitive_groups {
+    &__title {
+      color: #868e96;
+    }
+
+    &__description {
+      font-size: 1.1em;
+    }
+  }
+}
+
+.measurement {
+  &__temperature, &__humidity, &__pm25-level {
+    font-size: medium;
+  }
+
+  &__pm25-level {
+    font-weight: bold;
+
+    &--very_good {
+      color: $pm25-custom-level-very_good;
+    }
+
+    &--good {
+      color: $pm25-custom-level-godd;
+    }
+
+    &--moderate {
+      color: $pm25-custom-level-moderate;
+    }
+
+    &--bad {
+      color: $pm25-custom-level-bad;
+    }
+
+    &--very_bad {
+      color: $pm25-custom-level-very_bad;
+    }
+  }
 }

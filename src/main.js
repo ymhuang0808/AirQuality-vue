@@ -6,10 +6,12 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 import { i18n } from './setup/i18n-setup'
+import VueResize from 'vue-resize'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
+Vue.use(VueResize)
 
 /* eslint-disable no-new */
 new Vue({

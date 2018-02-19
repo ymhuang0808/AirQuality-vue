@@ -6,7 +6,7 @@
       @map-load="mapLoaded"
       @map-click="mapClicked">
     </mapbox>
-    <measurements-map-legend v-bind:color-stops="colorStops"></measurements-map-legend>
+    <!--<measurements-map-legend v-bind:color-stops="colorStops"></measurements-map-legend>-->
   </div>
 </template>
 
