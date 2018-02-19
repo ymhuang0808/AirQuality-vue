@@ -1,31 +1,52 @@
 <template>
-  <div id="map-meausrements-page">
+  <div id="map-measurements-page">
+    <resize-observer @notify="handleResize" />
     <measurements-map :map-measurements="measurements" v-on:feature-clicked="siteClicked"></measurements-map>
-    <measurements-slider ref="slider" :measurement="measurement"></measurements-slider>
+    <measurement-sidebar v-if="!hideSlideUp" ref="mSidebar" :measurement="measurement"></measurement-sidebar>
+    <measurements-slide-up v-if="hideSlideUp" ref="mSlideUp" :measurement="measurement" :visible="slideUpVisible" @toggleInvisible="toggleSlideUpInvisible"></measurements-slide-up>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import MeasurementsMap from '../components/MeasurementsMap'
-  import MeasurementsSlider from '../components/MeasurementsSlider'
+  import MeasurementSidebar from '../components/MeasurementSidebar'
+  import verge from 'verge'
+  import MeasurementsSlideUp from '../components/MeasurementsSlideUp'
 
   export default {
-    components: { MeasurementsMap, MeasurementsSlider },
+    components: {
+      MeasurementsSlideUp,
+      MeasurementsMap,
+      MeasurementSidebar: MeasurementSidebar
+    },
     name: 'MeasurementsMapPage',
     data: () => {
       return {
-        measurement: null
+        measurement: null,
+        hideSlideUp: true,
+        slideUpVisible: false
       }
     },
     computed: mapGetters({
       measurements: 'allLatestMeasurements',
-      isOpen: 'isShowMeasurementsSlider'
+      isOpen: 'isShowMeasurementSidebar'
     }),
     methods: {
       siteClicked (feature) {
-        this.$refs.slider.$children[0].slideout.open()
+        if (!this.hideSlideUp) {
+          this.$refs.mSidebar.$children[0].slideout.open()
+        } else {
+          this.slideUpVisible = true
+        }
+
         this.measurement = feature
+      },
+      handleResize () {
+        this.hideSlideUp = verge.viewportW() < 800
+      },
+      toggleSlideUpInvisible () {
+        this.slideUpVisible = false
       }
     },
     created () {
@@ -38,7 +59,10 @@
           selected: (selected.length === 0) ? measurement.source : selected
         })
       })
-      this.$store.dispatch('isShowMeasurementsSlider')
+      this.$store.dispatch('isShowMeasurementSidebar')
+    },
+    mounted () {
+      this.handleResize()
     }
   }
 </script>

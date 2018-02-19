@@ -1,11 +1,11 @@
 <template>
-  <Slideout ref="measurementSlider" menu="#menu" panel="#panel" class="measurements-slider">
-    <div id="menu" class="slider-content">
-      <div class="slider-content__container measurement" v-if="measurement">
-        <div class="slider-content__container__header d-flex flex-column">
+  <Slideout ref="measurementSidebar" menu="#menu" panel="#panel" class="measurements-sidebar">
+    <div id="menu" class="sidebar-content">
+      <div class="sidebar-content__container measurement" v-if="measurement">
+        <div class="sidebar-content__container__header d-flex flex-column">
           <div class="d-block">
             <div class="float-left">
-              <img class="slider-content__container__header__source-img" v-bind:src="imgSrc" v-bind:alt="sourceType" />
+              <img class="sidebar-content__container__header__source-img" v-bind:src="imgSrc" v-bind:alt="sourceType" />
               <span class="ml-2 measurement__time-ago">{{ timeAgo }}</span>
             </div>
             <div class="float-right">
@@ -15,37 +15,37 @@
             </div>
           </div>
           <div class="mt-3 d-block">
-            <span class="slider-content__container__header__site-name text-truncate d-inline">{{ $t('slider.site_name') }}{{ siteName }}</span>
+            <span class="sidebar-content__container__header__site-name text-truncate d-inline">{{ $t('sidebar.site_name') }}{{ siteName }}</span>
           </div>
         </div>
         <hr />
-        <div class="slider-content__container__main d-flex flex-column">
+        <div class="sidebar-content__container__main d-flex flex-column">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-12 text-center"><span class="lead">{{ $t('slider.pm25_concentration') }}</span></div>
+              <div class="col-12 text-center"><span class="lead">{{ $t('sidebar.pm25_concentration') }}</span></div>
               <div class="col-12 text-center"><span :class="[ 'measurement__pm25-level', 'measurement__pm25-level--' + this.level ]">{{ $t(`levels.${this.level}.name`) }}</span></div>
               <div class="col-12">
                 <div ref="linearGaugeParent" class="measurement__pm25 d-block">
                   <app-linear-gauge ref="linearGauge" :l-width.sync="lWidth" :stops="stops" :max-value="Number(80)" :l-value="pm25"></app-linear-gauge>
                 </div>
               </div>
-              <div class="col-6"><span class="measurement__temperature">{{ $t('slider.temperature') }}{{ temperature }}</span></div>
-              <div class="col-6"><span class="measurement__humidity">{{ $t('slider.humidity') }}{{ humidity }}</span></div>
+              <div class="col-6"><span class="measurement__temperature">{{ $t('sidebar.temperature') }}{{ temperature }}</span></div>
+              <div class="col-6"><span class="measurement__humidity">{{ $t('sidebar.humidity') }}{{ humidity }}</span></div>
             </div>
           </div>
         </div>
         <hr />
-        <div class="slider-content__container__suggestions">
+        <div class="sidebar-content__container__suggestions">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-12 text-center slider-content__container__suggestions__title"><span class="lead">{{ $t('slider.activity_suggestions') }}</span></div>
-              <div class="col-12 slider-content__container__suggestions__item suggestions__general-public">
+              <div class="col-12 text-center sidebar-content__container__suggestions__title"><span class="lead">{{ $t('sidebar.activity_suggestions') }}</span></div>
+              <div class="col-12 sidebar-content__container__suggestions__item suggestions__general-public">
                 <div class="row">
                   <div class="col-12 suggestions__general-public__title"><h5>{{ $t('groups.general_public') }}</h5></div>
                   <div class="col-12 suggestions__general-public__description" v-html="$t(`levels.${this.level}.activity_guidance.general_public`)"></div>
                 </div>
               </div>
-              <div class="col-12 slider-content__container__suggestions__item suggestions__sensitive_groups">
+              <div class="col-12 sidebar-content__container__suggestions__item suggestions__sensitive_groups">
                 <div class="row">
                   <div class="col-12 suggestions__sensitive_groups__title"><h5>{{ $t('groups.sensitive_groups') }}</h5></div>
                   <div class="col-12 suggestions__sensitive_groups__description" v-html="$t(`levels.${this.level}.activity_guidance.sensitive_groups`)"></div>
@@ -66,13 +66,13 @@
   import MeasurementInfoMixin from '../mixins/MeasurementInfoMixin'
 
   export default {
-    name: 'MeasurementsSlider',
+    name: 'MeasurementSidebar',
     mixins: [MeasurementInfoMixin],
     components: { Slideout },
     props: ['measurement'],
     methods: {
       close () {
-        console.log('close slider')
+        console.log('close sidebar')
         this.$children[0].slideout.close()
       }
     },
@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .measurements-slider {
+  .measurements-sidebar {
     height: 100%;
   }
 
@@ -147,7 +147,7 @@
     display: block;
   }
 
-  .slider-content {
+  .sidebar-content {
     &__container {
 
       .lead {

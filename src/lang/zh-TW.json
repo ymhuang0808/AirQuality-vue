@@ -1,5 +1,6 @@
 {
   "site_name": "How 好空氣",
+  "slogan": "讓你了解目前的空氣品質",
   "search": "搜尋",
   "filter": "篩選",
   "epa": "環保署",
@@ -8,9 +9,36 @@
   "navbar": {
     "filter": {
       "by_source": "依照來源"
+    },
+    "map": "地圖",
+    "about": "關於"
+  },
+  "about": {
+    "name": "關於",
+    "contact_info": {
+      "name": "聯絡資訊",
+      "contact_us_intro": "你可以透過發送 Email 信件到 {email}，也可以透過以下社群與 {site_name} 互動"
+    },
+    "privacy_policy": {
+      "name": "隱私權政策",
+      "collected_data": "搜集的資料"
+    },
+    "data_source": {
+      "name": "資料來源"
+    },
+    "licenses_information": {
+      "name": "授權資訊",
+      "thanks": "感謝以下的開放原始碼專案與開放文化的相關資源，才能夠開發此網站",
+      "project_description": "How 好空氣 是開放原始碼專案，採用 {license}，程式碼皆在 Github {github_icon} 上管理。",
+      "apache20_license": "Apache2.0 授權條款",
+      "libraries": "函式庫",
+      "images_photos": "圖片/照片",
+      "about_page_header_img": "在 {about_page} 背景圖衍生自「六輕工廠」由 {bg_about_author}，以 {license} 釋出",
+      "about_page": "關於頁面",
+      "about_page_social_icons": "在 {about_page} Twitter 與 Facebook "
     }
   },
-  "slider": {
+  "sidebar": {
     "site_name": "測站名稱：",
     "temperature": "溫度：",
     "humidity": "濕度：",

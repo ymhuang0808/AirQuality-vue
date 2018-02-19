@@ -1,5 +1,6 @@
 {
   "site_name": "How Good Air",
+  "slogan": "Let you know the current air quality",
   "search": "Search",
   "filter": "Filter",
   "epa": "EPA",
@@ -8,9 +9,30 @@
   "navbar": {
     "filter": {
       "by_source": "By source"
+    },
+    "about": "About"
+  },
+  "about": {
+    "name": "About",
+    "contact_info": {
+      "name": "Contact information",
+      "contact_us_intro": "You can send an e-mail to {email}，and also interact with {site_name} community"
+    },
+    "privacy_policy": "Privacy Policy",
+    "data_source": {
+      "name": "Data Source"
+    },
+    "licenses_information": {
+      "name": "Licenses information",
+      "project_description": "How 好空氣 是開源專案，採用 <a href=\"https://github.com/ymhuang0808/AirQuality-vue/blob/master/LICENSE\" target=\"_blank\">Apache2.0 授權條款</a>，程式碼皆在 Github <i class=\"fab fa-github\"></i> 上管理。",
+      "apache20_license": "Apache2.0 License",
+      "libraries": "Libraries",
+      "images_photos": "Images/Photos",
+      "about_page_header_img": "The background image on {about_page} is derived from '六輕工廠' by {bg_about_author} and under {license}",
+      "about_page": "About page"
     }
   },
-  "slider": {
+  "sidebar": {
     "site_name": "Site name: ",
     "temperature": "Temperature: ",
     "humidity": "Humidity: ",
