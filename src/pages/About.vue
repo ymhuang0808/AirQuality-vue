@@ -27,6 +27,19 @@
       <b-container class="about-page__privacy-policy__content">
         <h2 class="about-page__privacy-policy__content__title">{{ $t('about.privacy_policy.name') }}</h2>
         <b-row>
+          <b-col col cols="12" class="about-page__privacy-policy__content__brief">
+            <i18n path="about.privacy_policy.view_brief_statement" tag="p" class="lead">
+              <a place="privacy_policy" href="#" v-b-modal="'privacy-policy-full-statements'">{{ $t('about.privacy_policy.name') }}</a>
+              <a place="site_name" href="/">{{ $t('site_name') }}</a>
+            </i18n>
+            <b-modal id="privacy-policy-full-statements" size="lg" ok-only :ok-title="$t('about.privacy_policy.i_got_it')">
+              <div slot="modal-header">
+                <h3 slot="modal-title">{{ $t('about.privacy_policy.name') }}</h3>
+              </div>
+              <div v-html="$t('about.privacy_policy.full_text')" class="about-page__privacy-policy__content__full_text">
+              </div>
+            </b-modal>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -61,19 +74,30 @@
           <b-col cols="12">
             <h3>{{ $t('about.licenses_information.libraries') }}</h3>
             <ul>
-              <li>axios</li>
-              <li>Bootstrap</li>
-              <li>BootstrapVue</li>
-              <li><a href="https://github.com/motdotla/dotenv" target="_blank">motdotla/dotenv</a></li>
-              <li>jQuery</li>
-              <li>lodash</li>
-              <li>Mapbox GL</li>
-              <li><a href="https://github.com/phegman/vue-mapbox-gl" target="_blank">phegman/vue-mapbox-gl</a></li>
-              <li>Vue.js</li>
-              <li>Vuex</li>
-              <li>vuex-persist</li>
-              <li>vue-router</li>
+              <li><a href="https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt" target="_blank">@fortawesome/fontawesome</a></li>
+              <li><a href="https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt" target="_blank">@fortawesome/fontawesome-free-brands</a></li>
+              <li><a href="https://github.com/FortAwesome/vue-fontawesome/blob/master/LICENSE.txt" target="_blank">@fortawesome/vue-fontawesome</a></li>
+              <li><a href="https://github.com/axios/axios/blob/master/LICENSE" target="_blank">axios</a></li>
+              <li><a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">bootstrap</a></li>
+              <li><a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE" target="_blank">bootstrap-vue</a></li>
+              <li><a href="https://github.com/motdotla/dotenv/blob/master/LICENSE" target="_blank">dotenv</a></li>
+              <li><a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" target="_blank">jquery</a></li>
+              <li><a href="https://github.com/lodash/lodash/blob/master/LICENSE">lodash</a></li>
+              <li><a href="https://github.com/mapbox/mapbox-gl-js/blob/master/LICENSE.txt" target="_blank">mapbox-gl</a> </li>
+              <li><a href="https://github.com/phegman/vue-mapbox-gl/blob/master/LICENSE" target="_blank">mapbox-gl-vue</a></li>
+              <li><a href="https://github.com/moment/moment/blob/master/LICENSE" target="_blank">moment</a></li>
+              <li><a href="https://github.com/ryanve/verge/blob/master/LICENSE.md" target="_blank">verge</a></li>
+              <li><a href="https://github.com/vuejs/vue/blob/master/LICENSE" target="_blank">vue</a></li>
+              <li><a href="https://github.com/kazupon/vue-i18n/blob/master/LICENSE" target="_blank">vue-i18n</a></li>
+              <li><a href="https://github.com/Akryum/vue-resize#license" target="_blank">vue-resize</a></li>
+              <li><a href="https://github.com/vuejs/vue-router/blob/dev/LICENSE" target="_blank">vue-router</a></li>
+              <li><a href="https://github.com/vouill/vue-slideout" target="_blank">vue-slideout</a></li>
+              <li><a href="https://github.com/vuejs/vuex/blob/dev/LICENSE" target="_blank">vuex</a></li>
+              <li><a href="https://github.com/championswimmer/vuex-persist/blob/master/LICENSE.md" target="_blank">vuex-persist</a></li>
             </ul>
+            <i18n path="about.licenses_information.more_licenses" tag="p">
+              <a place="more_3rd_libraries" href="https://github.com/ymhuang0808/AirQuality-vue/blob/develop/LICENSE" target="_blank">{{ $t('about.licenses_information.here') }}</a>
+            </i18n>
           </b-col>
           <b-col cols="12">
             <h3>{{ $t('about.licenses_information.images_photos') }}</h3>
@@ -82,6 +106,10 @@
                 <router-link place="about_page" :to="{ name: 'About' }">{{ $t('about.licenses_information.about_page') }}</router-link>
                 <a place="bg_about_author" href="https://www.flickr.com/photos/70036458@N04/" target="_blank">Wenbin Qian</a>
                 <a place="license" href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA 2.0</a>
+              </i18n>
+              <i18n path="about.licenses_information.about_page_social_icons" tag="li">
+                <router-link place="about_page" :to="{ name: 'About' }">{{ $t('about.licenses_information.about_page') }}</router-link>
+                <a place="author" href="https://www.iconfinder.com/Re66y" target="_blank"> Gregor Cresnar</a>
               </i18n>
             </ul>
           </b-col>
