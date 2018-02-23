@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'measurements-slide-up': true, 'measurements-slide-up--visible': visible, 'measurements-slide-up--invisible': !visible }">
+  <div v-if="this.measurement !== null" :class="{ 'measurements-slide-up': true, 'measurements-slide-up--visible': visible, 'measurements-slide-up--invisible': !visible }">
     <div class="measurements-slide-up__container">
       <div class="measurements-slide-up__container__header d-flex flex-column">
         <div class="d-block">
