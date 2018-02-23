@@ -11,7 +11,8 @@
       "by_source": "依照來源"
     },
     "map": "地圖",
-    "about": "關於"
+    "about": "關於",
+    "beta_version": "測試版"
   },
   "about": {
     "name": "關於",

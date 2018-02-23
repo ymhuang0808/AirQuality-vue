@@ -3,11 +3,12 @@
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand href="#"><img src="../assets/logo.png" alt="logo" id="logo" />{{ $t('site_name') }}</b-navbar-brand>
+    <b-navbar-brand href="#"><img src="../assets/logo.png" alt="logo" id="logo"/>{{ $t('site_name') }}</b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
+        <b-nav-text>{{ $t('navbar.beta_version') }}</b-nav-text>
         <b-nav-item :to="{ name: 'Map' }">{{ $t('navbar.map') }}</b-nav-item>
         <b-nav-item :to="{ name: 'About' }">{{ $t('navbar.about') }}</b-nav-item>
       </b-navbar-nav>
@@ -15,21 +16,29 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
 
-          <b-nav-form v-if="$route.name === 'Map'">
-            <b-form-input size="lg" class="mr-sm-2" type="text" :placeholder="$t('search')"/>
-            <b-button size="lg" class="my-2 my-sm-0" type="submit">{{ $t('search') }}</b-button>
-          </b-nav-form>
+        <!--
+            TODO: Waiting for backend implementation
+         -->
+        <!--
+        <b-nav-form v-if="$route.name === 'Map'">
+          <b-form-input size="lg" class="mr-sm-2" type="text" :placeholder="$t('search')"/>
+          <b-button size="lg" class="my-2 my-sm-0" type="submit">{{ $t('search') }}</b-button>
+        </b-nav-form>
+        -->
 
-          <b-nav-form v-if="navFilter.isVisible && $route.name === 'Map'">
-            <b-dropdown :text="$t('filter')" size="lg" class="m-md-2">
-              <b-form-group :label="$t('navbar.filter.by_source')" class="px-3">
-                <b-form-checkbox-group buttons v-model="filterSelected" name="nav-filter" :options="navFilterOptions">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </b-dropdown>
-          </b-nav-form>
+        <!--
+            TODO: use dropdown button.
+            Wait for the Bootstrap-vue implementing dropdown form:
+            https://github.com/bootstrap-vue/bootstrap-vue/issues/747
+        -->
+        <b-nav-item-dropdown v-if="navFilter.isVisible && $route.name === 'Map'" :text="$t('filter')" size="lg" class="m-md-2" right>
+          <b-form-group :label="$t('navbar.filter.by_source')" class="px-3">
+            <b-form-checkbox-group buttons v-model="filterSelected" name="nav-filter" :options="navFilterOptions">
+            </b-form-checkbox-group>
+          </b-form-group>
+        </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown text="Language" right>
+        <b-nav-item-dropdown text="Language" class="m-md-2" right>
           <b-dropdown-item @click="switchLanguage('zh-TW')" href="#">中文 (臺灣)</b-dropdown-item>
           <b-dropdown-item @click="switchLanguage('en-US')" href="#">English</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -92,5 +101,10 @@
 <style lang="scss" scoped>
   #logo {
     height: 50px;
+  }
+
+  .nav-link, .nav-link span {
+    font-weight: 400;
+    font-size: 1rem;
   }
 </style>

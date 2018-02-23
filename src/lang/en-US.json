@@ -11,7 +11,8 @@
       "by_source": "By source"
     },
     "map": "Map",
-    "about": "About"
+    "about": "About",
+    "beta_version": "Beta version"
   },
   "about": {
     "name": "About",
