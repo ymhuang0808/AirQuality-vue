@@ -85,6 +85,7 @@
         let visibleSource = this.$store.getters.navFilterSelected
         let isVisible
         let measurementsGeoJson
+        let mapSource
 
         if (source === undefined || source === null || source.length === 0) {
           return
@@ -93,39 +94,48 @@
         source.forEach(name => {
           isVisible = visibleSource.indexOf(name) !== -1
           measurementsGeoJson = data.measurements[name].geojson
-          // Add source data
-          map.addSource(`${name}-measurements`, {
-            type: 'geojson',
-            data: measurementsGeoJson
-          })
-          // Add style layer
-          map.addLayer({
-            id: `${name}-measurements`,
-            source: `${name}-measurements`,
-            type: 'circle',
-            layout: {
-              visibility: isVisible ? 'visible' : 'none'
-            },
-            paint: {
-              'circle-color': {
-                property: 'pm25',
-                type: 'interval',
-                stops: Inidcator.getPm25ColorStops(Inidcator.STANDARDS.custom.name)
-              },
-              'circle-radius': {
-                base: 1.8,
-                stops: [[5, 2], [8, 10], [22, 20]]
-              },
-              'circle-opacity': 1,
-              'circle-blur': 0
-            }
-          })
 
-          if (isVisible) {
-            this.visibleLayers.push(name)
+          console.log(`source = ${name}-measurements`)
+
+          mapSource = map.getSource(`${name}-measurements`)
+
+          if (mapSource === undefined) {
+            // Add source data
+            map.addSource(`${name}-measurements`, {
+              type: 'geojson',
+              data: measurementsGeoJson
+            })
+          } else {
+            mapSource.setData(measurementsGeoJson)
           }
-
-          this.layers.push(`${name}-measurements`)
+          if (map.getLayer(`${name}-measurements`) === undefined) {
+            // Add style layer
+            map.addLayer({
+              id: `${name}-measurements`,
+              source: `${name}-measurements`,
+              type: 'circle',
+              layout: {
+                visibility: isVisible ? 'visible' : 'none'
+              },
+              paint: {
+                'circle-color': {
+                  property: 'pm25',
+                  type: 'interval',
+                  stops: Inidcator.getPm25ColorStops(Inidcator.STANDARDS.custom.name)
+                },
+                'circle-radius': {
+                  base: 1.8,
+                  stops: [[5, 2], [8, 10], [22, 20]]
+                },
+                'circle-opacity': 1,
+                'circle-blur': 0
+              }
+            })
+            this.layers.push(`${name}-measurements`)
+            if (isVisible) {
+              this.visibleLayers.push(name)
+            }
+          }
         })
       }
     },
