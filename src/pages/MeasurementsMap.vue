@@ -47,18 +47,24 @@
       },
       toggleSlideUpInvisible () {
         this.slideUpVisible = false
+      },
+      fetchMeasurements () {
+        this.$store.dispatch('getAllLatestMeasurements').then((measurement) => {
+          let selected = this.$store.getters.navFilterSelected
+
+          this.$store.dispatch('setNavFilter', {
+            isVisible: true,
+            source: measurement.source,
+            selected: (selected.length === 0) ? measurement.source : selected
+          })
+        })
       }
     },
     created () {
-      this.$store.dispatch('getAllLatestMeasurements').then((measurement) => {
-        let selected = this.$store.getters.navFilterSelected
+      this.fetchMeasurements()
+      // Periodically fetch and update the measurements
+      setInterval(this.fetchMeasurements, 60000)
 
-        this.$store.dispatch('setNavFilter', {
-          isVisible: true,
-          source: measurement.source,
-          selected: (selected.length === 0) ? measurement.source : selected
-        })
-      })
       this.$store.dispatch('isShowMeasurementSidebar')
     },
     mounted () {
