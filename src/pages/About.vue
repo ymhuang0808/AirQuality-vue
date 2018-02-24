@@ -30,7 +30,7 @@
           <b-col col cols="12" class="about-page__privacy-policy__content__brief">
             <i18n path="about.privacy_policy.view_brief_statement" tag="p" class="lead">
               <a place="privacy_policy" href="#" v-b-modal="'privacy-policy-full-statements'">{{ $t('about.privacy_policy.name') }}</a>
-              <a place="site_name" href="/">{{ $t('site_name') }}</a>
+              <router-link place="site_name" :to="{ name: 'Map' }">{{ $t('site_name') }}</router-link>
             </i18n>
             <b-modal id="privacy-policy-full-statements" size="lg" ok-only :ok-title="$t('about.privacy_policy.i_got_it')">
               <div slot="modal-header">
