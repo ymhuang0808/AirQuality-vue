@@ -49,7 +49,9 @@
       mapLoaded (map) {
         console.log('mapLoaded')
 
-        this.addGeoJsonMarker(map, this.mapMeasurements)
+        if (this.mapMeasurements !== null && this.mapMeasurements !== undefined) {
+          this.addGeoJsonMarker(map, this.mapMeasurements)
+        }
 
         this.$on('measurements-changed', val => {
           // TODO: Remove existing layer
@@ -109,6 +111,7 @@
             mapSource.setData(measurementsGeoJson)
           }
           if (map.getLayer(`${name}-measurements`) === undefined) {
+            console.log('map layer not exist')
             // Add style layer
             map.addLayer({
               id: `${name}-measurements`,
@@ -143,11 +146,11 @@
       let self = this
       this.$store.subscribe(function (mutation, state) {
         console.log('subscribe')
-        console.log(mutation)
+        console.log(state)
 
         if (mutation.type === types.SET_NAV_FILTER_SELECTED) {
           let original = _.cloneDeep(self.visibleLayers)
-          let current = _.cloneDeep(mutation.payload)
+          let current = _.cloneDeep(state.measurements.measurements)
           let diff = _.xor(original, current)
           let toggle = {}
 
@@ -166,6 +169,9 @@
 
             self.$emit('layer-toggle', toggle)
           })
+
+          original = null
+          current = null
         }
       })
     }

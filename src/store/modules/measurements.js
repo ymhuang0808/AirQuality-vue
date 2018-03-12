@@ -3,7 +3,7 @@ import measurements from '../../api/measurements'
 
 const state = {
   isShowMeasurementSidebar: false,
-  measurements: {}
+  measurements: null
 }
 
 const getters = {
