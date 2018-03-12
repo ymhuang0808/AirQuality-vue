@@ -1,6 +1,6 @@
-# air-quality-vue
+# AirQuality-Vue
 
-> Vue air quality
+
 
 ## Build Setup
 
