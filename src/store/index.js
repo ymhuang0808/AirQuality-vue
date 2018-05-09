@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import * as types from './mutation-types'
 import measurements from './modules/measurements'
+import sites from './modules/sites'
+import aggregationMeasurements from './modules/aggregationMeasurements'
 import { state, getters, actions, mutations } from './store'
 
 Vue.use(Vuex)
@@ -20,7 +22,9 @@ const vuexLocalStorage = new VuexPersistence({
 
 export default new Vuex.Store({
   modules: {
-    measurements
+    measurements,
+    sites,
+    aggregationMeasurements
   },
   plugins: [vuexLocalStorage.plugin],
   state,

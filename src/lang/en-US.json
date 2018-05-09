@@ -44,12 +44,22 @@
       "about_page_social_icons": "In {about_page}, the Twitter and Facebook icons from {author}'s Social collection and is under Free for commercial use license"
     }
   },
-  "sidebar": {
+    "site_measurement_info": {
     "site_name": "Site name: ",
-    "temperature": "Temperature: ",
-    "humidity": "Humidity: ",
+    "temperature_with_colon": "Temperature: ",
+    "humidity_with_colon": "Humidity: ",
     "activity_suggestions": "Activity Suggestions",
-    "pm25_concentration": "PM 2.5 Concentration"
+    "pm25_concentration": "PM 2.5 Concentration",
+    "other_pollution_measurements": "Other pollutions",
+    "pm25": "PM2.5",
+    "pm10": "PM10",
+    "o3": "O3",
+    "co": "CO",
+    "so2": "SO2",
+    "nox": "NOx",
+    "no": "NO",
+    "temperature": "Temperature",
+    "humidity": "Humidity"
   },
   "groups": {
     "general_public": "General Public",
@@ -91,5 +101,9 @@
         "sensitive_groups": "<ul><li>Adults and children with lung problems, adults with heart problems, and older people, should avoid strenuous physical activity</li><li>People with asthma may find they need to use their reliever inhaler more often</li></ul>"
       }
     }
+  },
+  "site_dashboard" : {
+    "go_to_link": "Go to site dashboard page",
+    "historical_data": "Historical data"
   }
 }

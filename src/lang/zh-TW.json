@@ -44,12 +44,22 @@
       "about_page_social_icons": "在 {about_page} 的 Twitter 與 Facebook 圖示，取自 {author} 的 Social 圖示集，以  Free for commercial use 釋出"
     }
   },
-  "sidebar": {
+  "site_measurement_info": {
     "site_name": "測站名稱：",
     "temperature": "溫度：",
     "humidity": "濕度：",
     "activity_suggestions": "活動建議",
-    "pm25_concentration": "PM 2.5 濃度"
+    "pm25_concentration": "PM 2.5 濃度",
+    "other_pollution_measurements": "其他污染指數",
+    "pm25": "PM2.5",
+    "pm10": "PM10",
+    "o3": "O3",
+    "co": "CO",
+    "so2": "SO2",
+    "nox": "NOx",
+    "no": "NO",
+    "temperature": "溫度",
+    "humidity": "濕度"
   },
   "groups": {
     "general_public": "一般大眾",
@@ -91,5 +101,9 @@
         "sensitive_groups": "<ul><li>有心臟、呼吸道及心血管疾病患者、孩童及老年人，建議留在室內並減少體力消耗活動，必要外出應配戴口罩</li><li>具有氣喘的人可能需增加使用吸入劑的頻率</li></ul>"
       }
     }
+  },
+  "site_dashboard" : {
+    "go_to_link": "前往測站狀態頁面",
+    "historical_data": "歷史資料"
   }
 }

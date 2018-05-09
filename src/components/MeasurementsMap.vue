@@ -145,9 +145,6 @@
     mounted: function () {
       let self = this
       this.$store.subscribe(function (mutation, state) {
-        console.log('subscribe')
-        console.log(state)
-
         if (mutation.type === types.SET_NAV_FILTER_SELECTED) {
           let original = _.cloneDeep(self.visibleLayers)
           let current = _.cloneDeep(state.measurements.measurements)

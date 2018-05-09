@@ -15,22 +15,22 @@
             </div>
           </div>
           <div class="mt-3 d-block">
-            <span class="sidebar-content__container__header__site-name text-truncate d-inline">{{ $t('sidebar.site_name') }}{{ siteName }}</span>
+            <span class="sidebar-content__container__header__site-name text-truncate d-inline">{{ $t('site_measurement_info.site_name') }}{{ siteName }}</span>
           </div>
         </div>
         <hr />
         <div class="sidebar-content__container__main d-flex flex-column">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-12 text-center"><span class="lead">{{ $t('sidebar.pm25_concentration') }}</span></div>
+              <div class="col-12 text-center"><span class="lead">{{ $t('site_measurement_info.pm25_concentration') }}</span></div>
               <div class="col-12 text-center"><span :class="[ 'measurement__pm25-level', 'measurement__pm25-level--' + this.level ]">{{ $t(`levels.${this.level}.name`) }}</span></div>
               <div class="col-12">
                 <div ref="linearGaugeParent" class="measurement__pm25 d-block">
                   <app-linear-gauge ref="linearGauge" :l-width.sync="lWidth" :stops="stops" :max-value="Number(80)" :l-value="pm25"></app-linear-gauge>
                 </div>
               </div>
-              <div class="col-6"><span class="measurement__temperature">{{ $t('sidebar.temperature') }}{{ temperature }}</span></div>
-              <div class="col-6"><span class="measurement__humidity">{{ $t('sidebar.humidity') }}{{ humidity }}</span></div>
+              <div class="col-6"><span class="measurement__temperature">{{ $t('site_measurement_info.temperature_with_colon') }}{{ temperature }}</span></div>
+              <div class="col-6"><span class="measurement__humidity">{{ $t('site_measurement_info.humidity_with_colon') }}{{ humidity }}</span></div>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="sidebar-content__container__suggestions">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-12 text-center sidebar-content__container__suggestions__title"><span class="lead">{{ $t('sidebar.activity_suggestions') }}</span></div>
+              <div class="col-12 text-center sidebar-content__container__suggestions__title"><span class="lead">{{ $t('site_measurement_info.activity_suggestions') }}</span></div>
               <div class="col-12 sidebar-content__container__suggestions__item suggestions__general-public">
                 <div class="row">
                   <div class="col-12 suggestions__general-public__title"><h5>{{ $t('groups.general_public') }}</h5></div>
@@ -54,6 +54,16 @@
             </div>
           </div>
         </div>
+        <div class="sidebar-content__container__dashboard-link fixed-bottom position-absolute">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <font-awesome-icon :icon="dashboardLinkIcon" size="lg"></font-awesome-icon>
+                <router-link :to="{ name: 'SiteDashboard', params: { siteId: this.measurement.properties.site_id } }">{{ $t('site_dashboard.go_to_link')}}</router-link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="panel">
@@ -64,11 +74,16 @@
 <script>
   import Slideout from 'vue-slideout'
   import MeasurementInfoMixin from '../mixins/MeasurementInfoMixin'
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { faLink } from '@fortawesome/fontawesome-free-solid'
 
   export default {
     name: 'MeasurementSidebar',
     mixins: [MeasurementInfoMixin],
-    components: { Slideout },
+    components: {
+      Slideout,
+      FontAwesomeIcon
+    },
     props: ['measurement'],
     methods: {
       close () {
@@ -79,6 +94,11 @@
     data: () => {
       return {
         lWidth: 0
+      }
+    },
+    computed: {
+      dashboardLinkIcon: function () {
+        return faLink
       }
     },
     updated: function () {
@@ -149,6 +169,8 @@
 
   .sidebar-content {
     &__container {
+      position: relative;
+      height: 100%;
 
       .lead {
         text-align: center;
@@ -178,6 +200,10 @@
         &__item {
           margin-bottom: 1.2em;
         }
+      }
+
+      &__dashboard-link {
+        padding: 1em 0;
       }
     }
   }

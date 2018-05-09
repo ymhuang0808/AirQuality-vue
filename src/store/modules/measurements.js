@@ -22,7 +22,7 @@ const actions = {
           measurements: response.data.measurements,
           source: response.data.meta.source
         }
-        commit(types.GET_ALL_LATEST_MEASUREMENTS, data)
+        commit(types.SET_ALL_LATEST_MEASUREMENTS, data)
 
         return data
       })
@@ -33,7 +33,7 @@ const mutations = {
   [types.SET_SHOW_MEASUREMENT_SIDEBAR] (state, value) {
     state.isShowMeasurementSidebar = value
   },
-  [types.GET_ALL_LATEST_MEASUREMENTS] (state, data) {
+  [types.SET_ALL_LATEST_MEASUREMENTS] (state, data) {
     state.measurements = data
   }
 }

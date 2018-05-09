@@ -34,6 +34,8 @@
     }),
     methods: {
       siteClicked (feature) {
+        this.measurement = null
+
         if (!this.hideSlideUp) {
           this.$refs.mSidebar.$children[0].slideout.open()
         } else {
@@ -69,6 +71,9 @@
     },
     mounted () {
       this.handleResize()
+    },
+    beforeDestroy () {
+      this.measurement = null
     }
   }
 </script>

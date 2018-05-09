@@ -60,23 +60,49 @@ main, #map-measurements-page {
     font-weight: bold;
 
     &--very_good {
-      color: $pm25-custom-level-very_good;
+      color: $indicator-custom-level-very_good;
     }
 
     &--good {
-      color: $pm25-custom-level-godd;
+      color: $indicator-custom-level-good;
     }
 
     &--moderate {
-      color: $pm25-custom-level-moderate;
+      color: $indicator-custom-level-moderate;
     }
 
     &--bad {
-      color: $pm25-custom-level-bad;
+      color: $indicator-custom-level-bad;
     }
 
     &--very_bad {
-      color: $pm25-custom-level-very_bad;
+      color: $indicator-custom-level-very_bad;
     }
   }
+}
+
+.indicator {
+  &--very_good {
+    color: $indicator-custom-level-very_good;
+  }
+
+  &--good {
+    color: $indicator-custom-level-good;
+  }
+
+  &--moderate {
+    color: $indicator-custom-level-moderate;
+  }
+
+  &--bad {
+    color: $indicator-custom-level-bad;
+  }
+
+  &--very_bad {
+    color: $indicator-custom-level-very_bad;
+  }
+}
+
+.mdc-fab {
+  border-radius: 50% !important;
 }

@@ -26,6 +26,39 @@ const IndicatorHelpersMixin = {
           return levels[i]
         }
       }
+    },
+    getStandardInfo (standard) {
+      return Indicator.getStandardInfo(standard)
+    },
+    findStandardStopIndex (standard, input) {
+      const n = standard.colorStops.length
+      let lowerIndex = 0
+      let upperIndex = n - 1
+      let currentIndex = 0
+      let currentValue, upperValue
+
+      while (lowerIndex <= upperIndex) {
+        currentIndex = Math.floor((lowerIndex + upperIndex) / 2)
+        currentValue = standard.colorStops[currentIndex][0]
+        upperValue = standard.colorStops[currentIndex + 1][0]
+
+        if ((input === currentValue) || (((input > currentValue) && (input < upperValue))) || input >= upperValue) { // Search complete
+          return currentIndex
+        } else if (currentValue < input) {
+          lowerIndex = currentIndex + 1
+        } else if (currentValue > input) {
+          upperIndex = currentIndex - 1
+        }
+      }
+
+      return Math.max(currentIndex - 1, 0)
+    },
+    findIndicatorInfo (standard, input) {
+      const index = this.findStandardStopIndex(standard, input)
+      return {
+        colorStop: standard.colorStops[index],
+        level: standard.levels[index]
+      }
     }
   }
 }

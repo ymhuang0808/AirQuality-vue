@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <header><app-navbar></app-navbar></header>
-    <main role="main">
-      <router-view/>
-    </main>
+    <router-view/>
   </div>
 </template>
 

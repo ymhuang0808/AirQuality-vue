@@ -81,9 +81,9 @@ $close-color:                       $gray-600 !default;
 // Global options
 $enable-shadows:                    true;
 
-// PM2.5 custom level color
-$pm25-custom-level-very_good:       #00BCD4;
-$pm25-custom-level-godd:             #009688;
-$pm25-custom-level-moderate:        #FFC107;
-$pm25-custom-level-bad:             #FF5722;
-$pm25-custom-level-very_bad:        #9C27B0;
+// Custom level color
+$indicator-custom-level-very_good:       #00BCD4;
+$indicator-custom-level-good:             #009688;
+$indicator-custom-level-moderate:        #FFC107;
+$indicator-custom-level-bad:             #FF5722;
+$indicator-custom-level-very_bad:        #9C27B0;
