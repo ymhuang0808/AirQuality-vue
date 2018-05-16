@@ -36,13 +36,14 @@ const IndicatorHelpersMixin = {
       let upperIndex = n - 1
       let currentIndex = 0
       let currentValue, upperValue
+      let maxValue = standard.colorStops[upperIndex]
 
       while (lowerIndex <= upperIndex) {
         currentIndex = Math.floor((lowerIndex + upperIndex) / 2)
         currentValue = standard.colorStops[currentIndex][0]
         upperValue = standard.colorStops[currentIndex + 1][0]
 
-        if ((input === currentValue) || (((input > currentValue) && (input < upperValue))) || input >= upperValue) { // Search complete
+        if ((input === currentValue) || ((input > currentValue) && (input < upperValue)) || input >= maxValue) { // Search complete
           return currentIndex
         } else if (currentValue < input) {
           lowerIndex = currentIndex + 1
