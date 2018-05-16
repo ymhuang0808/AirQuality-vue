@@ -3,7 +3,7 @@
     <resize-observer @notify="handleSize" />
     <b-container class="site-dashboard__wrapper" fluid v-if="siteInfo">
       <b-row>
-        <b-col class="site-dashboard__wrapper__section site-dashboard__wrapper__overview" md lg="7">
+        <b-col class="site-dashboard__wrapper__section site-dashboard__wrapper__overview" lg="7">
           <b-row>
             <b-col cols="12" class="my-5 text-center">
               <b-row>
@@ -40,15 +40,15 @@
               </b-row>
             </b-col>
           </b-row>
-          <b-row>
-            <b-col cols="6">
-              <h1 class="site-dashboard__site-name">{{ siteInfo.humanized_name }}</h1>
-              <span class="site-dashboard__time-ago">{{ timeAgo }}</span>
+          <b-row align-h="end" class="site-dashboard__wrapper__section__meta">
+            <b-col class="text-right">
+              <span class="site-dashboard__time-ago mr-3">{{ timeAgo }}</span>
+              <span class="site-dashboard__site-name">{{ siteInfo.humanized_name }}</span>
             </b-col>
           </b-row>
         </b-col>
-        <b-col class="site-dashboard__wrapper__section site-dashboard__wrapper__details" md lg="5">
-          <b-row>
+        <b-col class="site-dashboard__wrapper__section site-dashboard__wrapper__details" lg="5">
+          <b-row class="mb-3">
             <b-col cols="12" class="text-center site-dashboard__wrapper__details__other-pollution-measurements other-pollution-measurements my-5">
               <span class="site-dashboard__wrapper__details__other-pollution-measurements__title">{{ $t('site_measurement_info.other_pollution_measurements') }}</span>
               <b-row>
@@ -162,6 +162,7 @@
         return faCompress
       },
       displayBarChart () {
+        console.log(this.barChart.margin)
         return this.barChart.width !== null && this.barChart.height && this.barChart.margin
       }
     },
@@ -173,8 +174,8 @@
         this.$store.dispatch('getSiteWithLatestMeasurement', this.siteId)
       },
       fetchAggregationMeasurements () {
-        let startDateTime = moment.utc('2018-01-29T00:00:00+0000').utc()
-        let endDateTime = moment.utc('2018-01-29T23:59:59+0000').utc()
+        let startDateTime = moment().subtract(24, 'hours').utc()
+        let endDateTime = moment().utc()
         let periods = (_.invert(PERIOD_TYPES))
         let period = periods['hourly']
 
@@ -255,9 +256,12 @@
         this.fullscreen = fullscreen
       },
       handleBarChart () {
+        console.log('=== handleBarChart ===')
         let barChartElement = this.$refs.mBarChartWrapper
 
         if (!barChartElement) {
+          console.log('barChartElement = ')
+          console.log(barChartElement)
           return
         }
 
@@ -300,6 +304,9 @@
       this.watchAggregationMeasurements()
       this.fetchSiteLatestMeasurement()
       this.fetchAggregationMeasurements()
+
+      setInterval(this.fetchSiteLatestMeasurement, 30000)
+      setInterval(this.fetchAggregationMeasurements, 1800000)
     }
   }
 </script>
@@ -314,7 +321,8 @@
 
   .site-dashboard {
     width: 100vw;
-    height: 100vh;
+    max-height: 100vh !important;
+    height: 100vh !important;
 
     &__wrapper {
 
@@ -324,7 +332,9 @@
       }
 
       &__details {
-        height: 100vh;
+        max-height: 100vh !important;
+        height: 100vh !important;
+        overflow-y: scroll;
         background-color: $white;
 
         &__other-pollution-measurements {
@@ -360,6 +370,11 @@
           &__item {
             margin-bottom: 1em;
           }
+        }
+        &__meta {
+          position: absolute;
+          bottom: 3em;
+          right: 6em;
         }
       }
     }

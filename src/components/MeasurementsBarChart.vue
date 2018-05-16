@@ -74,7 +74,7 @@
       }
     },
     methods: {
-      getScales (key, count) {
+      getScales (key) {
         let self = this
         let x = d3.scaleBand()
           .range([0, this.innerWidth])
@@ -83,11 +83,11 @@
             return self.parseTime(d.start_datetime)
           }))
         let y = d3.scaleLinear()
-          .range([this.innerHeight, 0])
-          .domain(d3.extent(this.measurements, (d) => {
-            let data = d.values[key]
-            return data
-          }))
+          .rangeRound([this.innerHeight, 0])
+          .domain([0, d3.max(this.measurements, d => {
+            let value = d.values[key]
+            return parseInt(value)
+          })])
 
         return { x: x, y: y }
       },
@@ -135,7 +135,6 @@
       },
       drawBar (scale, key) {
         const standard = this.getStandardInfo(Indicator.STANDARDS.custom.name)
-        console.log(standard)
         let self = this
         this.g.selectAll('.bar').remove()
         let bar = this.g.selectAll('.bar')
@@ -145,14 +144,14 @@
           .append('rect')
           .attr('class', 'bar')
           .attr('x', d => {
-            console.log('drawBar... x')
             return scale.x(self.parseTime(d.start_datetime))
           })
           .attr('y', d => { return scale.y(d.values[key]) })
           .attr('width', scale.x.bandwidth())
-          .attr('height', d => { return self.innerHeight - scale.y(d.values[key]) })
+          .attr('height', d => {
+            return self.innerHeight - scale.y(d.values[key])
+          })
           .attr('fill', (d) => {
-            console.log('fill.....')
             let value = d.values[key]
             const indicatorInfo = self.findIndicatorInfo(standard[key], value)
             let color = indicatorInfo.colorStop[1]
@@ -163,7 +162,7 @@
         console.log('render')
         console.log('key = ' + key)
         let count = this.measurements.length
-        let scales = this.getScales(key, count)
+        let scales = this.getScales(key)
         let axis = this.createAxis(scales, count)
 
         this.svg = d3.select(this.$el)
