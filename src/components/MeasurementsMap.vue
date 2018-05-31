@@ -147,15 +147,20 @@
       this.$store.subscribe(function (mutation, state) {
         if (mutation.type === types.SET_NAV_FILTER_SELECTED) {
           let original = _.cloneDeep(self.visibleLayers)
-          let current = _.cloneDeep(state.measurements.measurements)
+          let current = _.cloneDeep(state.navFilter.selected)
           let diff = _.xor(original, current)
           let toggle = {}
+          console.log(state)
+          console.log(original)
+          console.log(current)
+          console.log('diff...')
+          console.log(diff)
 
           diff.forEach(function (item) {
             toggle.layer = `${item}-measurements`
 
             // Check if the source exists for not
-            if (self.visibleLayers.indexOf(item) === -1) {
+            if (!self.visibleLayers.includes(item)) {
               // Not exists
               toggle.visible = true
               self.visibleLayers.push(item)
