@@ -54,14 +54,14 @@
             </div>
           </div>
         </div>
-        <div class="sidebar-content__container__dashboard-link fixed-bottom position-absolute">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-12">
-                <font-awesome-icon :icon="dashboardLinkIcon" size="lg"></font-awesome-icon>
-                <router-link :to="{ name: 'SiteDashboard', params: { siteId: this.measurement.properties.site_id } }">{{ $t('site_dashboard.go_to_link')}}</router-link>
-              </div>
-            </div>
+      </div>
+    </div>
+    <div class="sidebar-content__container__dashboard-link fixed-bottom" v-if="measurement">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <font-awesome-icon :icon="dashboardLinkIcon" size="lg"></font-awesome-icon>
+            <router-link :to="{ name: 'SiteDashboard', params: { siteId: this.measurement.properties.site_id } }">{{ $t('site_dashboard.go_to_link')}}</router-link>
           </div>
         </div>
       </div>
@@ -113,13 +113,16 @@
 </script>
 
 <style lang="scss" scoped>
+  $slideout-top-position:               80.7667px;
+  $slideout-menu-padding-top-bottom:    25px;
+
   .measurements-sidebar {
     height: 100%;
   }
 
   .slideout-menu {
     position: absolute;
-    top: 80.7667px;
+    top: $slideout-top-position;
     bottom: 0;
 
     @include media-breakpoint-down(xl) {
@@ -130,9 +133,9 @@
       width: 25vw;
     }
 
-    padding: 25px 10px;
+    padding: $slideout-menu-padding-top-bottom 10px;
     overflow-x: scroll;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 0;
     display: none;
@@ -170,7 +173,8 @@
   .sidebar-content {
     &__container {
       position: relative;
-      height: 100%;
+      height: calc(100vh - #{$slideout-top-position} - #{$slideout-menu-padding-top-bottom * 2} - 15px);
+      overflow-y: scroll;
 
       .lead {
         text-align: center;
@@ -203,6 +207,7 @@
       }
 
       &__dashboard-link {
+        margin-top: 1em;
         padding: 1em 0;
       }
     }
