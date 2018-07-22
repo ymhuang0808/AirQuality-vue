@@ -315,25 +315,171 @@
   @import "~material-components-vue/dist/fab/fab.min.css";
 
   @mixin title-text() {
-    font-size: $font-size-base * 2.5;
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 1.6;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 1.9;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 2.2;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 2.5;
+    }
+
     color: $gray-600;
+  }
+
+  @mixin pm25__name-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 2;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 2.5;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 3;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 3.5;
+    }
+  }
+
+  @mixin pm25-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 9;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 11;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 13;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 19;
+    }
+  }
+
+  @mixin level-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 2.6;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 2.8;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 4;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 5.5;
+    }
+  }
+
+  @mixin pm25-unit-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 2.1;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 2.4;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 2.7;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 3;
+    }
+  }
+
+  @mixin suggestions-group-title-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 1.5;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 1.8;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 2.1;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 2.3;
+    }
+  }
+
+  @mixin suggestions-group-description-font-size {
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base * 1.4;
+    }
+
+    @include media-breakpoint-only(md) {
+      font-size: $font-size-base * 1.6;
+    }
+
+    @include media-breakpoint-only(lg) {
+      font-size: $font-size-base * 1.8;
+    }
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-base * 2;
+    }
+  }
+
+  @mixin wrapper-section-padding {
+    @include media-breakpoint-down(sm) {
+      padding: 0.3em 3.9em;
+    }
+
+    @include media-breakpoint-only(md) {
+      padding: 1.2em 4.2em;
+    }
+
+    @include media-breakpoint-only(lg) {
+      padding: 2.1em 5.1em;
+    }
+
+    @include media-breakpoint-only(xl) {
+      padding: 3em 6em;
+    }
   }
 
   .site-dashboard {
     width: 100vw;
-    max-height: 100vh !important;
-    height: 100vh !important;
+
+
+    @include media-breakpoint-down(md) {
+      height: auto !important;
+    }
+
+    @include media-breakpoint-up(lg) {
+      max-height: 100vh !important;
+      height: 100vh !important;
+    }
 
     &__wrapper {
 
       &__overview {
-        height: 100vh;
         background-color: $gray-200;
       }
 
       &__details {
-        max-height: 100vh !important;
-        height: 100vh !important;
         overflow-y: scroll;
         background-color: $white;
 
@@ -355,7 +501,15 @@
       }
 
       &__section {
-        padding: 3em 6em;
+        @include wrapper-section-padding();
+
+        @media (max-height: 1199.98px) {
+          height: auto !important;
+        }
+
+        @media (min-height: 1200px) {
+          height: 100vh !important;
+        }
 
         &__measurement-name {
           margin-bottom: ($spacer * 2) !important;
@@ -372,29 +526,34 @@
           }
         }
         &__meta {
-          position: absolute;
-          bottom: 3em;
-          right: 6em;
+          @include media-breakpoint-up(lg) {
+            position: absolute;
+            bottom: 3em;
+            right: 6em;
+          }
         }
       }
     }
 
     &__site-name {
-      font-size: $font-size-base * 2.5;
+      @include title-text();
       color: $gray-500;
     }
 
     &__pm25 {
-      font-size: $font-size-base * 23;
+      @include pm25-font-size();
+
       line-height: 0.9;
 
       &__name {
-        font-size: $font-size-base * 3.5;
         color: $gray-600;
+
+        @include pm25__name-font-size();
       }
 
       &__unit {
-        font-size: $font-size-base * 3;
+        @include pm25-unit-font-size();
+
         line-height: 0.8;
         color: $gray-600;
       }
@@ -422,8 +581,9 @@
 
     &__level {
       color: $white;
-      font-size: $font-size-base * 5.5;
       font-weight: bold;
+
+      @include level-font-size();
 
       &--very_good {
         color: $indicator-custom-level-very_good;
@@ -450,12 +610,13 @@
   .suggestions__general-public, .suggestions__sensitive_groups {
     &__title {
       & > h5 {
-        font-size: $font-size-base * 2.3;
+        @include suggestions-group-title-font-size();
+
         line-height: 1.5;
       }
     }
     &__description {
-      font-size: $font-size-base * 2;
+      @include suggestions-group-description-font-size();
     }
   }
 
