@@ -5,7 +5,7 @@
       <b-row>
         <b-col class="site-dashboard__wrapper__section site-dashboard__wrapper__overview" lg="7">
           <b-row>
-            <b-col cols="12" class="my-5 text-center">
+            <b-col cols="12" class="site-dashboard__wrapper__overview__panel-meter--padding-top-0 my-5 text-center">
               <b-row>
                 <b-col cols="12" class="site-dashboard__wrapper__section__measurement-name">
                   <span class="site-dashboard__pm25__name">{{ $t('site_measurement_info.pm25_concentration') }}</span>
@@ -444,15 +444,15 @@
 
   @mixin wrapper-section-padding {
     @include media-breakpoint-down(sm) {
-      padding: 0.3em 3.9em;
+      padding: 3em 3.9em;
     }
 
     @include media-breakpoint-only(md) {
-      padding: 1.2em 4.2em;
+      padding: 3em 4.2em;
     }
 
     @include media-breakpoint-only(lg) {
-      padding: 2.1em 5.1em;
+      padding: 3em 5.1em;
     }
 
     @include media-breakpoint-only(xl) {
@@ -462,7 +462,6 @@
 
   .site-dashboard {
     width: 100vw;
-
 
     @include media-breakpoint-down(md) {
       height: auto !important;
@@ -477,6 +476,15 @@
 
       &__overview {
         background-color: $gray-200;
+
+        &__panel-meter {
+          &--padding-top-0 {
+            @include media-breakpoint-down(md) {
+              margin-top: 0 !important;
+            }
+
+          }
+        }
       }
 
       &__details {
