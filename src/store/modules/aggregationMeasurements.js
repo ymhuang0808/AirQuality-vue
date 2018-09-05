@@ -17,8 +17,6 @@ const getters = {
 
 const actions = {
   getAggregationMeasurements ({ commit }, query) {
-    console.log('query...')
-    console.log(query)
     return aggregationMeasurements.getAggregationMeasurementsBySiteId(query.id, query.startDateTime, query.endDateTime, query.period, query.limit, query.order)
       .then(response => {
         let payload = {

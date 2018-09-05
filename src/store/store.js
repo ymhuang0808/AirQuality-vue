@@ -6,7 +6,8 @@ export const state = {
     isVisible: false,
     source: [],
     selected: []
-  }
+  },
+  clickedSite: null
 }
 
 export const getters = {
@@ -16,8 +17,11 @@ export const getters = {
   navFilter: (state) => {
     return state.navFilter
   },
-  navFilterSelected: () => {
+  navFilterSelected: (state) => {
     return state.navFilter.selected
+  },
+  clickedSite: (state) => {
+    return state.clickedSite
   }
 }
 
@@ -30,6 +34,9 @@ export const actions = {
   },
   setNavFilterSelected ({ commit }, selected) {
     commit(types.SET_NAV_FILTER_SELECTED, selected)
+  },
+  setClickedSite ({ commit }, site) {
+    commit(types.SET_CLICKED_SITE, site)
   }
 }
 
@@ -42,5 +49,8 @@ export const mutations = {
   },
   [types.SET_NAV_FILTER_SELECTED] (state, selected) {
     state.navFilter.selected = selected
+  },
+  [types.SET_CLICKED_SITE] (state, site) {
+    state.clickedSite = site
   }
 }

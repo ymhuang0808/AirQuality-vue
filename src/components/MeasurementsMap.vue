@@ -68,9 +68,6 @@
         })
       },
       mapClicked (map, e) {
-        console.log('Map was clicked')
-        console.log(e)
-
         const features = map.queryRenderedFeatures(e.point, {
           layers: this.layers
         })

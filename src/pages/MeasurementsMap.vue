@@ -43,6 +43,7 @@
         }
 
         this.measurement = feature
+        this.$store.dispatch('setClickedSite', feature)
       },
       handleResize () {
         this.hideSlideUp = verge.viewportW() < 800
@@ -71,6 +72,7 @@
     },
     mounted () {
       this.handleResize()
+      this.measurement = this.$store.getters.clickedSite
     },
     beforeDestroy () {
       this.measurement = null
