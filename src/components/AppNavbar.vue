@@ -9,8 +9,8 @@
 
       <b-navbar-nav>
         <b-nav-text>{{ $t('navbar.beta_version') }}</b-nav-text>
-        <b-nav-item :to="{ name: 'Map' }">{{ $t('navbar.map') }}</b-nav-item>
-        <b-nav-item :to="{ name: 'About' }">{{ $t('navbar.about') }}</b-nav-item>
+        <b-nav-item :to="{ name: 'Map' }" exact>{{ $t('navbar.map') }}</b-nav-item>
+        <b-nav-item :to="{ name: 'About' }" exact>{{ $t('navbar.about') }}</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
