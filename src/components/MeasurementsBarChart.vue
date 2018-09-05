@@ -51,17 +51,12 @@
     },
     watch: {
       lcWidth: function () {
-        console.log('watch lcWidth')
         this.render(this.property.key, this.property.name, this.property.unit)
       },
       lcHeight: function () {
-        console.log('watch lcHeight')
         this.render(this.property.key, this.property.name, this.property.unit)
       },
       property: function (value) {
-        console.log('watch property')
-        console.log(value.key)
-        console.log(value.name)
         this.render(value.key, value.name, value.unit)
       }
     },
@@ -159,8 +154,6 @@
           })
       },
       render (key, propertyName, unit) {
-        console.log('render')
-        console.log('key = ' + key)
         let count = this.measurements.length
         let scales = this.getScales(key)
         let axis = this.createAxis(scales, count)

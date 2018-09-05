@@ -78,8 +78,6 @@
       }
     },
     updated: function () {
-      console.log('updated')
-
       if (this.$refs.hasOwnProperty('linearGaugeParent')) {
         this.lWidth = this.$refs.linearGaugeParent.clientWidth
         this.$refs.linearGauge.draw()

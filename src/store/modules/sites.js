@@ -18,7 +18,6 @@ const actions = {
   getSiteWithLatestMeasurement ({ commit }, id) {
     return sites.getSite(id, ['latest_measurement'])
       .then(response => {
-        console.log('getSiteWithLatestMeasurement')
         let payload = {
           id: response.data.id,
           data: response.data

@@ -150,11 +150,6 @@
           let current = _.cloneDeep(state.navFilter.selected)
           let diff = _.xor(original, current)
           let toggle = {}
-          console.log(state)
-          console.log(original)
-          console.log(current)
-          console.log('diff...')
-          console.log(diff)
 
           diff.forEach(function (item) {
             toggle.layer = `${item}-measurements`
