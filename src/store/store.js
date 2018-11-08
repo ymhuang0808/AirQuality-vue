@@ -1,7 +1,7 @@
 import * as types from './mutation-types'
 
 export const state = {
-  lang: null,
+  lang: 'zh-TW',
   navFilter: {
     isVisible: false,
     source: [],

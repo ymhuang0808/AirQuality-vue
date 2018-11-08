@@ -80,6 +80,7 @@ $close-color:                       $gray-600 !default;
 
 // Global options
 $enable-shadows:                    true;
+$component-active-bg:               darken($primary, 5%) !default;
 
 // Custom level color
 $indicator-custom-level-very_good:       #00BCD4;

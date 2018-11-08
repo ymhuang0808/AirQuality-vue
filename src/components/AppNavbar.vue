@@ -39,8 +39,8 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="Language" class="m-md-2" right>
-          <b-dropdown-item @click="switchLanguage('zh-TW')" href="#">中文 (臺灣)</b-dropdown-item>
-          <b-dropdown-item @click="switchLanguage('en-US')" href="#">English</b-dropdown-item>
+          <b-dropdown-item @click="switchLanguage('zh-TW')" href="#" :active="isActiveLang('zh-TW')">中文 (臺灣)</b-dropdown-item>
+          <b-dropdown-item @click="switchLanguage('en-US')" href="#" :active="isActiveLang('en-US')">English</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
@@ -62,7 +62,8 @@
     computed: {
       ...mapGetters([
         'navFilter',
-        'allLatestMeasurements'
+        'allLatestMeasurements',
+        'lang'
       ]),
       filterSelected: {
         get: function () {
@@ -93,6 +94,9 @@
       switchLanguage (lang) {
         loadLanguageAsync(lang)
         this.$store.dispatch('setLang', lang)
+      },
+      isActiveLang (target) {
+        return this.lang === target
       }
     }
   }

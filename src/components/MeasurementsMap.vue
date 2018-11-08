@@ -49,6 +49,9 @@
       mapLoaded (map) {
         console.log('mapLoaded')
 
+        let langCode = this.getMapboxLangCode()
+        map.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + langCode])
+
         if (this.mapMeasurements !== null && this.mapMeasurements !== undefined) {
           this.addGeoJsonMarker(map, this.mapMeasurements)
         }
@@ -62,9 +65,14 @@
           console.log(val)
           let layer = val.layer
           let visibility = val.visible ? 'visible' : 'none'
-          console.log('layer = ' + layer)
-          console.log('visibility = ' + visibility)
           map.setLayoutProperty(layer, 'visibility', visibility)
+        })
+
+        this.$store.watch(() => {
+          return this.$store.getters.lang
+        }, () => {
+          let langCode = this.getMapboxLangCode()
+          map.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + langCode])
         })
       },
       mapClicked (map, e) {
@@ -93,9 +101,6 @@
         source.forEach(name => {
           isVisible = visibleSource.indexOf(name) !== -1
           measurementsGeoJson = data.measurements[name].geojson
-
-          console.log(`source = ${name}-measurements`)
-
           mapSource = map.getSource(`${name}-measurements`)
 
           if (mapSource === undefined) {
@@ -108,7 +113,6 @@
             mapSource.setData(measurementsGeoJson)
           }
           if (map.getLayer(`${name}-measurements`) === undefined) {
-            console.log('map layer not exist')
             // Add style layer
             map.addLayer({
               id: `${name}-measurements`,
@@ -137,6 +141,10 @@
             }
           }
         })
+      },
+      getMapboxLangCode () {
+        let language = this.$store.getters.lang
+        return language.substr(0, 2)
       }
     },
     mounted: function () {

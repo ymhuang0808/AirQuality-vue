@@ -11,7 +11,7 @@ Vue.use(Vuex)
 
 const allowedMutations = [types.SWITCH_LANG, types.SET_NAV_FILTER, types.SET_NAV_FILTER_SELECTED]
 const vuexLocalStorage = new VuexPersistence({
-  key: 'air-quality-veux',
+  key: 'air-quality-vuex',
   storage: window.localStorage,
   reducer: state => ({
     lang: state.lang,
