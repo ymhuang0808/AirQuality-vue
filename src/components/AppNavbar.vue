@@ -92,6 +92,7 @@
     },
     methods: {
       switchLanguage (lang) {
+        console.log('switchLanguage')
         loadLanguageAsync(lang)
         this.$store.dispatch('setLang', lang)
       },
